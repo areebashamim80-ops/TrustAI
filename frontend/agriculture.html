@@ -197,8 +197,30 @@ Analyze With TrustAI
 
 
 <script>
-
 function startAnalysis(){
+
+let data = {
+    domain: "Agriculture",
+    temperature: document.querySelectorAll("input")[0].value,
+    humidity: document.querySelectorAll("input")[1].value,
+    rainfall: document.querySelectorAll("input")[2].value,
+    soilPH: document.querySelectorAll("input")[3].value,
+    nitrogen: document.querySelectorAll("input")[4].value,
+    phosphorus: document.querySelectorAll("input")[5].value
+};
+
+
+localStorage.setItem(
+    "trustai_analysis_data",
+    JSON.stringify(data)
+);
+
+
+localStorage.setItem(
+    "trustai_selected_domain",
+    "Agriculture"
+);
+
 
 window.location.href="analysis.html";
 
