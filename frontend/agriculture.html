@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Agriculture Analysis - TrustAI</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard">
+
+
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+
+<div class="side-logo">
+<span>◉</span> TrustAI
+</div>
+
+
+<ul>
+
+<li>
+🏠 Dashboard
+</li>
+
+<li class="active">
+🌱 Agriculture
+</li>
+
+<li>
+📊 History
+</li>
+
+<li>
+👤 Profile
+</li>
+
+<li>
+⚙ Settings
+</li>
+
+</ul>
+
+
+<button class="logout-btn" onclick="logout()">
+Logout
+</button>
+
+
+</aside>
+
+
+
+
+
+<section class="dashboard-content">
+
+
+<h1>
+Agriculture AI Analysis 🌱
+</h1>
+
+
+<p>
+Enter farming data to get reliable AI insights.
+</p>
+
+
+
+
+<div class="form-card">
+
+
+
+<div class="form-grid">
+
+
+
+<div class="input-box">
+
+<label>
+Temperature (°C)
+</label>
+
+<input type="number" placeholder="Enter temperature">
+
+</div>
+
+
+
+
+<div class="input-box">
+
+<label>
+Humidity (%)
+</label>
+
+<input type="number" placeholder="Enter humidity">
+
+</div>
+
+
+
+
+<div class="input-box">
+
+<label>
+Rainfall (mm)
+</label>
+
+<input type="number" placeholder="Enter rainfall">
+
+</div>
+
+
+
+
+<div class="input-box">
+
+<label>
+Soil pH
+</label>
+
+<input type="number" placeholder="Enter soil pH">
+
+</div>
+
+
+
+
+<div class="input-box">
+
+<label>
+Nitrogen
+</label>
+
+<input type="number" placeholder="Nitrogen value">
+
+</div>
+
+
+
+
+
+<div class="input-box">
+
+<label>
+Phosphorus
+</label>
+
+<input type="number" placeholder="Phosphorus value">
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+<button class="analyze-btn" onclick="startAnalysis()">
+
+Analyze With TrustAI
+
+</button>
+
+
+
+</div>
+
+
+</section>
+
+
+
+</div>
+
+
+
+<script src="js/auth.js"></script>
+
+
+<script>
+
+function startAnalysis(){
+
+window.location.href="analysis.html";
+
+}
+
+</script>
+
+<script src="js/auth.js"></script>
+
+<script>
+    checkLogin();
+</script>
+
+</body>
+
+</html>

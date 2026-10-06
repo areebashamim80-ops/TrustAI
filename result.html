@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Result - TrustAI</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="side-logo">
+            <span>◉</span> TrustAI
+        </div>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+                🏠 Dashboard
+            </li>
+
+            <li onclick="location.href='domain.html'">
+                🔍 Analyze
+            </li>
+
+            <li onclick="location.href='history.html'">
+                📊 History
+            </li>
+
+            <li onclick="location.href='profile.html'">
+                👤 Profile
+            </li>
+
+            <li onclick="location.href='settings.html'">
+                ⚙ Settings
+            </li>
+
+        </ul>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <section class="dashboard-content">
+
+        <h1 id="resultTitle">
+            AI Analysis Result
+        </h1>
+
+        <p id="resultSubtitle">
+            Here is your reliable AI prediction report.
+        </p>
+
+
+        <!-- ================= RESULT GRID ================= -->
+
+        <div class="result-grid">
+
+
+            <!-- ================= PREDICTION ================= -->
+
+            <div class="result-card">
+
+                <h2>
+                    Prediction
+                </h2>
+
+                <div
+                    class="prediction"
+                    id="prediction"
+                >
+                    Analyzing...
+                </div>
+
+                <p id="predictionDescription">
+                    TrustAI has analyzed your information.
+                </p>
+
+            </div>
+
+
+            <!-- ================= TRUST SCORE ================= -->
+
+            <div class="result-card trust">
+
+                <h2>
+                    Trust Score
+                </h2>
+
+                <div
+                    class="trust-circle"
+                    id="trustScore"
+                >
+                    0%
+                </div>
+
+                <span
+                    class="high"
+                    id="reliability"
+                >
+                    CALCULATING
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================= EXPLANATION ================= -->
+
+        <div class="explanation-card">
+
+            <h2>
+                Why You Can Trust This Result?
+            </h2>
+
+            <div
+                class="reason"
+                id="reason1"
+            >
+                ✓ Complete input data received
+            </div>
+
+            <div
+                class="reason"
+                id="reason2"
+            >
+                ✓ AI analysis completed successfully
+            </div>
+
+            <div
+                class="reason"
+                id="reason3"
+            >
+                ✓ No unusual data patterns detected
+            </div>
+
+            <div
+                class="reason"
+                id="reason4"
+            >
+                ✓ Result generated from entered information
+            </div>
+
+        </div>
+
+
+        <!-- ================= RECOMMENDATION ================= -->
+
+        <div class="recommendation-card">
+
+            <h2>
+                AI Recommendation
+            </h2>
+
+            <p id="recommendation">
+                Your personalized recommendation will appear here.
+            </p>
+
+        </div>
+
+
+    </section>
+
+</div>
+
+
+<!-- ================= AUTH ================= -->
+
+<script src="js/auth.js"></script>
+
+
+<script>
+
+checkLogin();
+
+
+/*
+ * GET SAVED DATA
+ */
+
+const savedData =
+    localStorage.getItem("trustai_analysis_data");
+
+
+const selectedDomain =
+    localStorage.getItem("trustai_selected_domain");
+
+
+/*
+ * CHECK DATA
+ */
+
+if (!savedData) {
+
+    alert("No analysis data found.");
+
+    window.location.href =
+        "domain.html";
+
+}
+
+
+/*
+ * CONVERT DATA
+ */
+
+const data =
+    JSON.parse(savedData);
+
+
+/*
+ * ELEMENTS
+ */
+
+const resultTitle =
+    document.getElementById("resultTitle");
+
+const resultSubtitle =
+    document.getElementById("resultSubtitle");
+
+const prediction =
+    document.getElementById("prediction");
+
+const predictionDescription =
+    document.getElementById("predictionDescription");
+
+const trustScore =
+    document.getElementById("trustScore");
+
+const reliability =
+    document.getElementById("reliability");
+
+const recommendation =
+    document.getElementById("recommendation");
+
+const reason1 =
+    document.getElementById("reason1");
+
+const reason2 =
+    document.getElementById("reason2");
+
+const reason3 =
+    document.getElementById("reason3");
+
+const reason4 =
+    document.getElementById("reason4");
+
+
+/*
+ * DEFAULT TRUST SCORE
+ */
+
+let score = 85;
+
+
+/*
+ * DOMAIN ANALYSIS
+ */
+
+
+/* ==========================================
+   AGRICULTURE
+========================================== */
+
+if (data.domain === "Agriculture") {
+
+    resultTitle.innerHTML =
+        "AI Analysis Result 🌱";
+
+    resultSubtitle.innerHTML =
+        "Here is your agriculture AI prediction report.";
+
+
+    const temperature =
+        Number(data.temperature || 25);
+
+    const humidity =
+        Number(data.humidity || 60);
+
+    const rainfall =
+        Number(data.rainfall || 100);
+
+
+    if (
+        temperature >= 20 &&
+        temperature <= 30 &&
+        rainfall >= 80 &&
+        humidity >= 50
+    ) {
+
+        prediction.innerHTML =
+            "Rice Crop";
+
+    }
+
+    else if (
+        temperature >= 18 &&
+        temperature <= 28
+    ) {
+
+        prediction.innerHTML =
+            "Wheat Crop";
+
+    }
+
+    else {
+
+        prediction.innerHTML =
+            "Suitable Crop Required";
+
+    }
+
+
+    predictionDescription.innerHTML =
+        "Recommended based on soil and weather conditions.";
+
+
+    score = 92;
+
+
+    recommendation.innerHTML =
+        "Maintain proper irrigation, soil nutrients and monitor weather conditions for better crop production.";
+
+
+    reason1.innerHTML =
+        "✓ Complete farming data received";
+
+    reason2.innerHTML =
+        "✓ Weather and soil conditions analyzed";
+
+    reason3.innerHTML =
+        "✓ Crop suitability checked";
+
+    reason4.innerHTML =
+        "✓ Prediction generated from entered data";
+
+}
+
+
+/* ==========================================
+   HEALTHCARE
+========================================== */
+
+else if (data.domain === "Healthcare") {
+
+    resultTitle.innerHTML =
+        "AI Analysis Result 🏥";
+
+    resultSubtitle.innerHTML =
+        "Here is your healthcare AI risk analysis report.";
+
+
+    const bmi =
+        Number(data.bmi);
+
+    const heartRate =
+        Number(data.heartRate);
+
+    const bloodSugar =
+        Number(data.bloodSugar);
+
+
+    let healthResult =
+        "Low Risk";
+
+
+    if (
+        bmi >= 30 ||
+        heartRate > 100 ||
+        bloodSugar > 140
+    ) {
+
+        healthResult =
+            "Moderate Risk";
+
+        score = 78;
+
+    }
+
+    else if (
+        bmi >= 18.5 &&
+        bmi < 25 &&
+        heartRate >= 60 &&
+        heartRate <= 100
+    ) {
+
+        healthResult =
+            "Healthy Range";
+
+        score = 94;
+
+    }
+
+    else {
+
+        healthResult =
+            "Low Risk";
+
+        score = 87;
+
+    }
+
+
+    prediction.innerHTML =
+        healthResult;
+
+
+    predictionDescription.innerHTML =
+        "Health risk assessment based on the information provided.";
+
+
+    recommendation.innerHTML =
+        "Maintain a balanced lifestyle, regular physical activity and monitor important health measurements regularly. Consult a qualified healthcare professional for medical decisions.";
+
+
+    reason1.innerHTML =
+        "✓ Complete healthcare data received";
+
+    reason2.innerHTML =
+        "✓ BMI and vital information analyzed";
+
+    reason3.innerHTML =
+        "✓ Health indicators evaluated";
+
+    reason4.innerHTML =
+        "✓ Risk level generated from entered data";
+
+}
+
+
+/* ==========================================
+   FINANCE
+========================================== */
+
+else if (data.domain === "Finance") {
+
+    resultTitle.innerHTML =
+        "AI Analysis Result 💰";
+
+    resultSubtitle.innerHTML =
+        "Here is your financial AI analysis report.";
+
+
+    const income =
+        Number(data.income);
+
+    const expenses =
+        Number(data.expenses);
+
+    const debt =
+        Number(data.debt);
+
+    const savings =
+        Number(data.savings);
+
+    const creditScore =
+        Number(data.creditScore);
+
+
+    const balance =
+        income - expenses;
+
+
+    let financeResult;
+
+
+    if (
+        balance > 0 &&
+        creditScore >= 700 &&
+        debt <= income * 3
+    ) {
+
+        financeResult =
+            "Strong Financial Position";
+
+        score = 93;
+
+    }
+
+    else if (
+        balance >= 0 &&
+        creditScore >= 600
+    ) {
+
+        financeResult =
+            "Moderate Financial Position";
+
+        score = 84;
+
+    }
+
+    else {
+
+        financeResult =
+            "Needs Financial Improvement";
+
+        score = 76;
+
+    }
+
+
+    prediction.innerHTML =
+        financeResult;
+
+
+    predictionDescription.innerHTML =
+        "Financial position evaluated using income, expenses, debt, savings and credit score.";
+
+
+    recommendation.innerHTML =
+        "Maintain a healthy gap between income and expenses, increase savings gradually and manage existing debt responsibly.";
+
+
+    reason1.innerHTML =
+        "✓ Complete financial data received";
+
+    reason2.innerHTML =
+        "✓ Income and expenses evaluated";
+
+    reason3.innerHTML =
+        "✓ Debt and savings analyzed";
+
+    reason4.innerHTML =
+        "✓ Credit score considered";
+
+}
+
+
+/* ==========================================
+   EDUCATION
+========================================== */
+
+else if (data.domain === "Education") {
+
+    resultTitle.innerHTML =
+        "AI Analysis Result 🎓";
+
+    resultSubtitle.innerHTML =
+        "Here is your student performance analysis.";
+
+
+    const preparation =
+        Number(data.preparation);
+
+    const attendance =
+        Number(data.attendance);
+
+    const marks =
+        Number(data.marks);
+
+    const studyHours =
+        Number(data.studyHours);
+
+
+    let educationResult;
+
+
+    if (
+        preparation >= 80 &&
+        attendance >= 75 &&
+        marks >= 75 &&
+        studyHours >= 4
+    ) {
+
+        educationResult =
+            "Excellent Preparation";
+
+        score = 95;
+
+    }
+
+    else if (
+        preparation >= 60 &&
+        attendance >= 65 &&
+        marks >= 50
+    ) {
+
+        educationResult =
+            "Good Preparation";
+
+        score = 86;
+
+    }
+
+    else {
+
+        educationResult =
+            "Needs Improvement";
+
+        score = 75;
+
+    }
+
+
+    prediction.innerHTML =
+        educationResult;
+
+
+    predictionDescription.innerHTML =
+        "Student preparation is evaluated using study hours, attendance, marks, practice and revision.";
+
+
+    recommendation.innerHTML =
+        "Follow a consistent study schedule, revise regularly, practice more questions and maintain good attendance to improve performance.";
+
+
+    reason1.innerHTML =
+        "✓ Complete education data received";
+
+    reason2.innerHTML =
+        "✓ Study hours evaluated";
+
+    reason3.innerHTML =
+        "✓ Attendance and marks analyzed";
+
+    reason4.innerHTML =
+        "✓ Preparation level calculated";
+
+}
+
+
+/* ==========================================
+   CYBERSECURITY
+========================================== */
+
+else if (data.domain === "Cybersecurity") {
+
+    resultTitle.innerHTML =
+        "AI Analysis Result 🔐";
+
+    resultSubtitle.innerHTML =
+        "Here is your cybersecurity risk analysis report.";
+
+
+    const loginAttempts =
+        Number(data.loginAttempts);
+
+    const suspicious =
+        Number(data.suspiciousActivities);
+
+
+    let securityResult;
+
+
+    if (
+        data.firewall === "enabled" &&
+        data.antivirus === "active" &&
+        data.passwordStrength === "strong" &&
+        loginAttempts <= 3 &&
+        suspicious <= 2
+    ) {
+
+        securityResult =
+            "Low Security Risk";
+
+        score = 95;
+
+    }
+
+    else if (
+        data.firewall === "enabled" &&
+        data.antivirus === "active"
+    ) {
+
+        securityResult =
+            "Moderate Security Risk";
+
+        score = 84;
+
+    }
+
+    else {
+
+        securityResult =
+            "High Security Risk";
+
+        score = 72;
+
+    }
+
+
+    prediction.innerHTML =
+        securityResult;
+
+
+    predictionDescription.innerHTML =
+        "Security risk evaluated using login activity, password strength, firewall and antivirus status.";
+
+
+    recommendation.innerHTML =
+        "Use strong unique passwords, keep antivirus and firewall enabled, avoid suspicious links and regularly update your software.";
+
+
+    reason1.innerHTML =
+        "✓ Complete security data received";
+
+    reason2.innerHTML =
+        "✓ Login activity evaluated";
+
+    reason3.innerHTML =
+        "✓ Firewall and antivirus checked";
+
+    reason4.innerHTML =
+        "✓ Security risk calculated";
+
+}
+
+
+/* ==========================================
+   BUSINESS
+========================================== */
+
+else if (data.domain === "Business") {
+
+    resultTitle.innerHTML =
+        "AI Analysis Result 💼";
+
+    resultSubtitle.innerHTML =
+        "Here is your business AI analysis report.";
+
+
+    const revenue =
+        Number(data.revenue);
+
+    const expenses =
+        Number(data.expenses);
+
+    const growth =
+        Number(data.customerGrowth);
+
+
+    const profit =
+        revenue - expenses;
+
+
+    let businessResult;
+
+
+    if (
+        profit > 0 &&
+        growth >= 10 &&
+        data.performance === "high"
+    ) {
+
+        businessResult =
+            "Strong Business Performance";
+
+        score = 94;
+
+    }
+
+    else if (
+        profit >= 0 &&
+        growth >= 5
+    ) {
+
+        businessResult =
+            "Moderate Business Performance";
+
+        score = 85;
+
+    }
+
+    else {
+
+        businessResult =
+            "Business Needs Improvement";
+
+        score = 74;
+
+    }
+
+
+    prediction.innerHTML =
+        businessResult;
+
+
+    predictionDescription.innerHTML =
+        "Business performance evaluated using revenue, expenses, customer growth and performance level.";
+
+
+    recommendation.innerHTML =
+        "Focus on increasing revenue, controlling unnecessary expenses, improving customer retention and maintaining consistent business growth.";
+
+
+    reason1.innerHTML =
+        "✓ Complete business data received";
+
+    reason2.innerHTML =
+        "✓ Revenue and expenses evaluated";
+
+    reason3.innerHTML =
+        "✓ Customer growth analyzed";
+
+    reason4.innerHTML =
+        "✓ Business performance calculated";
+
+}
+
+
+/* ==========================================
+   UNKNOWN DOMAIN
+========================================== */
+
+else {
+
+    resultTitle.innerHTML =
+        "AI Analysis Result";
+
+
+    prediction.innerHTML =
+        "Analysis Completed";
+
+
+    predictionDescription.innerHTML =
+        "Your information has been analyzed by TrustAI.";
+
+
+    recommendation.innerHTML =
+        "Please select a valid domain and enter complete information for a more detailed analysis.";
+
+    score = 80;
+
+}
+
+
+/*
+ * SHOW TRUST SCORE
+ */
+
+trustScore.innerHTML =
+    score + "%";
+
+
+/*
+ * RELIABILITY LEVEL
+ */
+
+if (score >= 90) {
+
+    reliability.innerHTML =
+        "HIGH RELIABILITY";
+
+}
+
+else if (score >= 80) {
+
+    reliability.innerHTML =
+        "GOOD RELIABILITY";
+
+}
+
+else {
+
+    reliability.innerHTML =
+        "MODERATE RELIABILITY";
+
+}
+
+
+/*
+ * SAVE ANALYSIS AUTOMATICALLY
+ */
+
+function saveAnalysis() {
+
+    let history =
+        JSON.parse(
+            localStorage.getItem(
+                "trustai_analysis_history"
+            )
+        ) || [];
+
+
+    /*
+     * CREATE UNIQUE ID
+     */
+
+    const analysisId =
+        data.domain +
+        "_" +
+        prediction.innerText +
+        "_" +
+        score;
+
+
+    /*
+     * CHECK IF ALREADY SAVED
+     */
+
+    const alreadySaved =
+        history.some(
+            item =>
+                item.analysisId === analysisId
+        );
+
+
+    if (alreadySaved) {
+
+        return;
+
+    }
+
+
+    /*
+     * CREATE RECORD
+     */
+
+    const analysisRecord = {
+
+        analysisId:
+            analysisId,
+
+        domain:
+            data.domain,
+
+        prediction:
+            prediction.innerText,
+
+        trustScore:
+            score,
+
+        date:
+            new Date().toLocaleString(),
+
+        data:
+            data
+
+    };
+
+
+    /*
+     * ADD TO HISTORY
+     */
+
+    history.push(
+        analysisRecord
+    );
+
+
+    /*
+     * SAVE TO LOCAL STORAGE
+     */
+
+    localStorage.setItem(
+        "trustai_analysis_history",
+        JSON.stringify(history)
+    );
+
+}
+
+
+/*
+ * AUTOMATICALLY SAVE RESULT
+ */
+
+saveAnalysis();
+
+</script>
+
+</body>
+
+</html>

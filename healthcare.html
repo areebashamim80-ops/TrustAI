@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Healthcare Analysis - TrustAI</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="side-logo">
+            <span>◉</span> TrustAI
+        </div>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+                🏠 Dashboard
+            </li>
+
+            <li class="active">
+                🏥 Healthcare
+            </li>
+
+            <li onclick="location.href='history.html'">
+                📊 History
+            </li>
+
+            <li onclick="location.href='profile.html'">
+                👤 Profile
+            </li>
+
+            <li onclick="location.href='settings.html'">
+                ⚙ Settings
+            </li>
+
+        </ul>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <section class="dashboard-content">
+
+        <h1>
+            Healthcare AI Analysis 🏥
+        </h1>
+
+        <p>
+            Enter health information to get reliable AI insights.
+        </p>
+
+
+        <!-- ================= FORM CARD ================= -->
+
+        <div class="form-card">
+
+            <div class="form-grid">
+
+
+                <!-- AGE -->
+
+                <div class="input-box">
+
+                    <label>
+                        Age
+                    </label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        placeholder="Enter age"
+                        min="1"
+                        max="120"
+                    >
+
+                </div>
+
+
+                <!-- BLOOD PRESSURE -->
+
+                <div class="input-box">
+
+                    <label>
+                        Blood Pressure
+                    </label>
+
+                    <input
+                        type="text"
+                        id="bloodPressure"
+                        placeholder="Example: 120/80"
+                    >
+
+                </div>
+
+
+                <!-- HEART RATE -->
+
+                <div class="input-box">
+
+                    <label>
+                        Heart Rate (BPM)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="heartRate"
+                        placeholder="Example: 72"
+                        min="30"
+                        max="220"
+                    >
+
+                </div>
+
+
+                <!-- BLOOD SUGAR -->
+
+                <div class="input-box">
+
+                    <label>
+                        Blood Sugar
+                    </label>
+
+                    <input
+                        type="number"
+                        id="bloodSugar"
+                        placeholder="Enter blood sugar"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <!-- BMI -->
+
+                <div class="input-box">
+
+                    <label>
+                        BMI
+                    </label>
+
+                    <input
+                        type="number"
+                        id="bmi"
+                        placeholder="Example: 22.5"
+                        min="5"
+                        max="80"
+                        step="0.1"
+                    >
+
+                </div>
+
+
+                <!-- ACTIVITY -->
+
+                <div class="input-box">
+
+                    <label>
+                        Activity Level
+                    </label>
+
+                    <select id="activity">
+
+                        <option value="">
+                            Select activity level
+                        </option>
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                        <option value="medium">
+                            Medium
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= ANALYZE BUTTON ================= -->
+
+            <button
+                class="analyze-btn"
+                onclick="startAnalysis()"
+            >
+
+                Analyze With TrustAI
+
+            </button>
+
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- ================= AUTH ================= -->
+
+<script src="js/auth.js"></script>
+
+
+<script>
+
+    /*
+     * CHECK LOGIN
+     */
+
+    checkLogin();
+
+
+    /*
+     * HEALTHCARE ANALYSIS
+     */
+
+    function startAnalysis() {
+
+        const age =
+            document.getElementById("age").value.trim();
+
+        const bloodPressure =
+            document.getElementById("bloodPressure").value.trim();
+
+        const heartRate =
+            document.getElementById("heartRate").value.trim();
+
+        const bloodSugar =
+            document.getElementById("bloodSugar").value.trim();
+
+        const bmi =
+            document.getElementById("bmi").value.trim();
+
+        const activity =
+            document.getElementById("activity").value;
+
+
+        /*
+         * VALIDATION
+         */
+
+        if (
+            age === "" ||
+            bloodPressure === "" ||
+            heartRate === "" ||
+            bloodSugar === "" ||
+            bmi === "" ||
+            activity === ""
+        ) {
+
+            alert("Please fill all healthcare details.");
+
+            return;
+
+        }
+
+
+        /*
+         * AGE VALIDATION
+         */
+
+        if (
+            Number(age) < 1 ||
+            Number(age) > 120
+        ) {
+
+            alert("Please enter a valid age.");
+
+            return;
+
+        }
+
+
+        /*
+         * HEART RATE VALIDATION
+         */
+
+        if (
+            Number(heartRate) < 30 ||
+            Number(heartRate) > 220
+        ) {
+
+            alert("Please enter a valid heart rate.");
+
+            return;
+
+        }
+
+
+        /*
+         * BLOOD PRESSURE VALIDATION
+         */
+
+        const bpPattern =
+            /^\d{2,3}\/\d{2,3}$/;
+
+        if (!bpPattern.test(bloodPressure)) {
+
+            alert(
+                "Please enter blood pressure in format 120/80."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * SAVE HEALTHCARE DATA
+         */
+
+        const healthcareData = {
+
+            domain: "Healthcare",
+
+            age: age,
+
+            bloodPressure: bloodPressure,
+
+            heartRate: heartRate,
+
+            bloodSugar: bloodSugar,
+
+            bmi: bmi,
+
+            activity: activity
+
+        };
+
+
+        /*
+         * SAVE DATA
+         */
+
+        localStorage.setItem(
+            "trustai_analysis_data",
+            JSON.stringify(healthcareData)
+        );
+
+
+        /*
+         * SAVE SELECTED DOMAIN
+         */
+
+        localStorage.setItem(
+            "trustai_selected_domain",
+            "Healthcare"
+        );
+
+
+        /*
+         * GO TO ANALYSIS PAGE
+         */
+
+        window.location.href =
+            "analysis.html";
+
+    }
+
+</script>
+
+</body>
+
+</html>

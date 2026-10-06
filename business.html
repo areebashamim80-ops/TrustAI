@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Business Analysis - TrustAI</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="side-logo">
+            <span>◉</span> TrustAI
+        </div>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+                🏠 Dashboard
+            </li>
+
+            <li class="active">
+                💼 Business
+            </li>
+
+            <li onclick="location.href='history.html'">
+                📊 History
+            </li>
+
+            <li onclick="location.href='profile.html'">
+                👤 Profile
+            </li>
+
+            <li onclick="location.href='settings.html'">
+                ⚙ Settings
+            </li>
+
+        </ul>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <section class="dashboard-content">
+
+        <h1>
+            Business AI Analysis 💼
+        </h1>
+
+        <p>
+            Enter business information to get reliable AI insights.
+        </p>
+
+
+        <!-- ================= FORM CARD ================= -->
+
+        <div class="form-card">
+
+            <div class="form-grid">
+
+
+                <!-- MONTHLY REVENUE -->
+
+                <div class="input-box">
+
+                    <label>
+                        Monthly Revenue (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="revenue"
+                        placeholder="Enter monthly revenue"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <!-- MONTHLY EXPENSE -->
+
+                <div class="input-box">
+
+                    <label>
+                        Monthly Expenses (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="expenses"
+                        placeholder="Enter monthly expenses"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <!-- EMPLOYEES -->
+
+                <div class="input-box">
+
+                    <label>
+                        Number of Employees
+                    </label>
+
+                    <input
+                        type="number"
+                        id="employees"
+                        placeholder="Example: 10"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <!-- BUSINESS AGE -->
+
+                <div class="input-box">
+
+                    <label>
+                        Business Age (Years)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="businessAge"
+                        placeholder="Example: 3"
+                        min="0"
+                        step="0.5"
+                    >
+
+                </div>
+
+
+                <!-- CUSTOMER GROWTH -->
+
+                <div class="input-box">
+
+                    <label>
+                        Customer Growth (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="customerGrowth"
+                        placeholder="Example: 15"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                    >
+
+                </div>
+
+
+                <!-- BUSINESS TYPE -->
+
+                <div class="input-box">
+
+                    <label>
+                        Business Performance
+                    </label>
+
+                    <select id="performance">
+
+                        <option value="">
+                            Select performance
+                        </option>
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                        <option value="medium">
+                            Medium
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= ANALYZE BUTTON ================= -->
+
+            <button
+                class="analyze-btn"
+                onclick="startAnalysis()"
+            >
+
+                Analyze With TrustAI
+
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- ================= AUTH ================= -->
+
+<script src="js/auth.js"></script>
+
+
+<script>
+
+    /*
+     * CHECK LOGIN
+     */
+
+    checkLogin();
+
+
+    /*
+     * BUSINESS ANALYSIS
+     */
+
+    function startAnalysis() {
+
+        const revenue =
+            document.getElementById("revenue").value.trim();
+
+        const expenses =
+            document.getElementById("expenses").value.trim();
+
+        const employees =
+            document.getElementById("employees").value.trim();
+
+        const businessAge =
+            document.getElementById("businessAge").value.trim();
+
+        const customerGrowth =
+            document.getElementById("customerGrowth").value.trim();
+
+        const performance =
+            document.getElementById("performance").value;
+
+
+        /*
+         * CHECK EMPTY FIELDS
+         */
+
+        if (
+            revenue === "" ||
+            expenses === "" ||
+            employees === "" ||
+            businessAge === "" ||
+            customerGrowth === "" ||
+            performance === ""
+        ) {
+
+            alert(
+                "Please fill all business details."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * NUMBER VALIDATION
+         */
+
+        if (
+            Number(revenue) < 0 ||
+            Number(expenses) < 0 ||
+            Number(employees) < 0 ||
+            Number(businessAge) < 0
+        ) {
+
+            alert(
+                "Business values cannot be negative."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * CUSTOMER GROWTH VALIDATION
+         */
+
+        if (
+            Number(customerGrowth) < 0 ||
+            Number(customerGrowth) > 100
+        ) {
+
+            alert(
+                "Customer growth must be between 0 and 100%."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * CALCULATE PROFIT
+         */
+
+        const monthlyProfit =
+            Number(revenue) - Number(expenses);
+
+
+        /*
+         * CREATE BUSINESS DATA
+         */
+
+        const businessData = {
+
+            domain: "Business",
+
+            revenue:
+                Number(revenue),
+
+            expenses:
+                Number(expenses),
+
+            employees:
+                Number(employees),
+
+            businessAge:
+                Number(businessAge),
+
+            customerGrowth:
+                Number(customerGrowth),
+
+            performance:
+                performance,
+
+            monthlyProfit:
+                monthlyProfit
+
+        };
+
+
+        /*
+         * SAVE ANALYSIS DATA
+         */
+
+        localStorage.setItem(
+            "trustai_analysis_data",
+            JSON.stringify(businessData)
+        );
+
+
+        /*
+         * SAVE SELECTED DOMAIN
+         */
+
+        localStorage.setItem(
+            "trustai_selected_domain",
+            "Business"
+        );
+
+
+        /*
+         * OPEN ANALYSIS PAGE
+         */
+
+        window.location.href =
+            "analysis.html";
+
+    }
+
+</script>
+
+</body>
+
+</html>

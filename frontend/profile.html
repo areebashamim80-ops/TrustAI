@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profile - TrustAI</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+<style>
+
+.profile-card {
+    max-width: 800px;
+    margin-top: 30px;
+    padding: 35px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+}
+
+.profile-image {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    background: linear-gradient(135deg,  #20d477, #16b86b);
+}
+
+.profile-card h2 {
+    margin-bottom: 5px;
+}
+
+.profile-role {
+    color: #aaa;
+    margin-bottom: 30px;
+}
+
+.profile-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.profile-info > div {
+    padding: 20px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.04);
+}
+
+.profile-info label {
+    display: block;
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.profile-info p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.score-text {
+    color: #22c55e;
+}
+
+.profile-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.save-btn {
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    background: linear-gradient(135deg,  #20d477, #16b86b);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.history-btn {
+    padding: 12px 25px;
+    border-radius: 10px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+@media (max-width: 700px) {
+
+    .profile-info {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card {
+        padding: 25px 18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard">
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+<div class="side-logo">
+<span>◉</span> TrustAI
+</div>
+
+
+<ul>
+
+<li>
+    <a href="dashboard.html">
+        🏠 <span>Dashboard</span>
+    </a>
+</li>
+
+<li>
+    <a href="domain.html">
+        🔍 <span>Analyze</span>
+    </a>
+</li>
+
+<li>
+    <a href="history.html">
+        📊 <span>History</span>
+    </a>
+</li>
+
+<li class="active">
+    <a href="profile.html">
+        👤 <span>Profile</span>
+    </a>
+</li>
+
+<li>
+    <a href="settings.html">
+        ⚙ <span>Settings</span>
+    </a>
+</li>
+
+</ul>
+
+
+<button class="logout-btn" onclick="logout()">
+Logout
+</button>
+
+</aside>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<section class="dashboard-content">
+
+<h1>
+My Profile
+</h1>
+
+<p>
+Manage your TrustAI account information.
+</p>
+
+
+
+<!-- ================= PROFILE CARD ================= -->
+
+<div class="profile-card">
+
+
+<div class="profile-image">
+👤
+</div>
+
+
+<h2 id="profileName">
+User
+</h2>
+
+
+<p class="profile-role">
+AI Research User
+</p>
+
+
+
+<div class="profile-info">
+
+
+<div>
+
+<label>
+Email
+</label>
+
+<p id="profileEmail">
+Loading...
+</p>
+
+</div>
+
+
+
+<div>
+
+<label>
+Total Analysis
+</label>
+
+<p id="totalAnalysis">
+0 Predictions
+</p>
+
+</div>
+
+
+
+<div>
+
+<label>
+Trust Score
+</label>
+
+<p id="trustScore" class="score-text">
+0%
+</p>
+
+</div>
+
+
+</div>
+
+
+
+<div class="profile-actions">
+
+<button class="save-btn" onclick="editProfile()">
+Edit Profile
+</button>
+
+
+<a href="history.html" class="history-btn">
+View History
+</a>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</div>
+
+
+
+<!-- AUTH -->
+
+<script src="js/auth.js"></script>
+
+
+<script>
+
+checkLogin();
+
+
+/* ==========================================
+   LOAD PROFILE
+========================================== */
+
+function loadProfile() {
+
+    let user = null;
+
+
+    /* Current logged-in user */
+
+    const currentUser =
+        localStorage.getItem("trustai_current_user");
+
+
+    if (currentUser) {
+
+        try {
+
+            user = JSON.parse(currentUser);
+
+        } catch (error) {
+
+            user = null;
+
+        }
+
+    }
+
+
+    /* Fallback to saved signup user */
+
+    if (!user) {
+
+        const savedUser =
+            localStorage.getItem("trustai_user");
+
+        if (savedUser) {
+
+            try {
+
+                user = JSON.parse(savedUser);
+
+            } catch (error) {
+
+                user = null;
+
+            }
+
+        }
+
+    }
+
+
+    if (user) {
+
+        document.getElementById("profileName").textContent =
+            user.name || "TrustAI User";
+
+
+        document.getElementById("profileEmail").textContent =
+            user.email || "No email available";
+
+    }
+
+
+
+    /* ==========================================
+       ANALYSIS HISTORY
+    ========================================== */
+
+    const history =
+        JSON.parse(
+            localStorage.getItem("trustai_analysis_history")
+        ) || [];
+
+
+    document.getElementById("totalAnalysis").textContent =
+        history.length + " Predictions";
+
+
+    /* ==========================================
+       TRUST SCORE
+    ========================================== */
+
+    if (history.length > 0) {
+
+        let totalScore = 0;
+        let validScores = 0;
+
+
+        history.forEach(item => {
+
+            const score =
+                Number(item.score || item.trustScore);
+
+
+            if (!isNaN(score)) {
+
+                totalScore += score;
+                validScores++;
+
+            }
+
+        });
+
+
+        if (validScores > 0) {
+
+            const average =
+                Math.round(totalScore / validScores);
+
+
+            document.getElementById("trustScore").textContent =
+                average + "%";
+
+        }
+
+    }
+
+}
+
+
+/* ==========================================
+   EDIT PROFILE
+========================================== */
+
+function editProfile() {
+
+    const currentUser =
+        localStorage.getItem("trustai_current_user");
+
+
+    if (!currentUser) {
+
+        alert("User information not found.");
+
+        return;
+
+    }
+
+
+    const user = JSON.parse(currentUser);
+
+
+    const newName =
+        prompt("Enter your name:", user.name || "");
+
+
+    if (newName === null) {
+        return;
+    }
+
+
+    const name =
+        newName.trim();
+
+
+    if (name === "") {
+
+        alert("Name cannot be empty.");
+
+        return;
+
+    }
+
+
+    user.name = name;
+
+
+    localStorage.setItem(
+        "trustai_current_user",
+        JSON.stringify(user)
+    );
+
+
+    /* Update saved user too */
+
+    const savedUser =
+        localStorage.getItem("trustai_user");
+
+
+    if (savedUser) {
+
+        try {
+
+            const signupUser =
+                JSON.parse(savedUser);
+
+
+            signupUser.name = name;
+
+
+            localStorage.setItem(
+                "trustai_user",
+                JSON.stringify(signupUser)
+            );
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
+    }
+
+
+    loadProfile();
+
+
+    /* Update sidebar username if available */
+
+    if (typeof showUserName === "function") {
+
+        showUserName();
+
+    }
+
+
+    alert("Profile updated successfully!");
+
+}
+
+
+/* ==========================================
+   PAGE LOAD
+========================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadProfile();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

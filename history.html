@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>History - TrustAI</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+<style>
+
+.history-table {
+    width: 100%;
+    margin-top: 30px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.history-header,
+.history-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1.3fr 1.5fr 1fr 1.3fr 0.7fr;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 20px;
+}
+
+.history-header {
+    background: rgba(32, 212, 119, 0.15);
+    font-weight: 700;
+}
+
+.history-row {
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.history-row:hover {
+    background: rgba(255,255,255,0.04);
+}
+
+.score-text {
+    font-weight: 700;
+}
+
+.success {
+    color: #22c55e;
+    font-weight: 600;
+}
+
+.warning {
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.danger {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.delete-btn {
+    border: none;
+    background: rgba(239,68,68,0.12);
+    color: #ef4444;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.delete-btn:hover {
+    background: rgba(239,68,68,0.22);
+}
+
+.empty-history {
+    text-align: center;
+    padding: 50px 20px;
+    color: #aaa;
+}
+
+.empty-history h2 {
+    margin-bottom: 10px;
+    color: white;
+}
+
+.analyze-btn {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #20d477, #16b86b);
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+
+    .history-table {
+        overflow-x: auto;
+    }
+
+    .history-header,
+    .history-row {
+        min-width: 900px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard">
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="side-logo">
+        <span>◉</span> TrustAI
+    </div>
+
+    <ul>
+
+        <li onclick="window.location.href='dashboard.html'">
+            🏠 Dashboard
+        </li>
+
+        <li onclick="window.location.href='domain.html'">
+            🔍 Analyze
+        </li>
+
+        <li class="active"
+            onclick="window.location.href='history.html'">
+            📊 History
+        </li>
+
+        <li onclick="window.location.href='profile.html'">
+            👤 Profile
+        </li>
+
+        <li onclick="window.location.href='settings.html'">
+            ⚙ Settings
+        </li>
+
+    </ul>
+
+    <button
+        class="logout-btn"
+        onclick="logout()">
+        Logout
+    </button>
+
+</aside>
+
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<section class="dashboard-content">
+
+    <h1>
+        Analysis History
+    </h1>
+
+    <p>
+        View your previous AI predictions and reliability scores.
+    </p>
+
+
+    <!-- ================= HISTORY TABLE ================= -->
+
+    <div class="history-table">
+
+        <div class="history-header">
+
+            <span>Date</span>
+
+            <span>Domain</span>
+
+            <span>Prediction</span>
+
+            <span>Trust Score</span>
+
+            <span>Status</span>
+
+            <span>Action</span>
+
+        </div>
+
+
+        <div id="historyContainer">
+
+        </div>
+
+    </div>
+
+
+</section>
+
+</div>
+
+
+
+<!-- ================= AUTH ================= -->
+
+<script src="js/auth.js"></script>
+
+
+<script>
+
+checkLogin();
+
+
+/* ==========================================
+   LOAD HISTORY
+========================================== */
+
+function loadHistory() {
+
+    const container =
+        document.getElementById("historyContainer");
+
+
+    let history =
+        JSON.parse(
+            localStorage.getItem(
+                "trustai_analysis_history"
+            )
+        ) || [];
+
+
+    container.innerHTML = "";
+
+
+    /* ======================================
+       NO HISTORY
+    ====================================== */
+
+    if (history.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="empty-history">
+
+                <h2>No Analysis Yet</h2>
+
+                <p>
+                    Your AI analysis history will appear here.
+                </p>
+
+                <a
+                    href="domain.html"
+                    class="analyze-btn">
+
+                    Start Analysis
+
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    /* ======================================
+       LATEST FIRST
+       WITHOUT CHANGING ORIGINAL ARRAY
+    ====================================== */
+
+    const reversedHistory =
+        [...history].reverse();
+
+
+    reversedHistory.forEach(
+        (item, reversedIndex) => {
+
+
+        let domain =
+            item.domain || "Unknown";
+
+
+        let prediction =
+            item.prediction ||
+            "Analysis Completed";
+
+
+        let score =
+            item.trustScore ??
+            item.score ??
+            0;
+
+
+        let date =
+            item.date ||
+            new Date().toLocaleDateString("en-IN");
+
+
+        /* ==================================
+           STATUS
+        ================================== */
+
+        let status =
+            "Review";
+
+        let statusClass =
+            "warning";
+
+
+        if (score >= 85) {
+
+            status =
+                "High Reliability";
+
+            statusClass =
+                "success";
+
+        }
+
+        else if (score >= 70) {
+
+            status =
+                "Reliable";
+
+            statusClass =
+                "success";
+
+        }
+
+        else if (score < 50) {
+
+            status =
+                "Low Reliability";
+
+            statusClass =
+                "danger";
+
+        }
+
+
+        /* ==================================
+           ORIGINAL ARRAY INDEX
+        ================================== */
+
+        const originalIndex =
+            history.length - 1 - reversedIndex;
+
+
+        /* ==================================
+           CREATE ROW
+        ================================== */
+
+        const row =
+            document.createElement("div");
+
+
+        row.className =
+            "history-row";
+
+
+        row.innerHTML = `
+
+            <span>
+                ${date}
+            </span>
+
+            <span>
+                ${getDomainIcon(domain)}
+                ${domain}
+            </span>
+
+            <span>
+                ${prediction}
+            </span>
+
+            <span class="score-text">
+                ${score}%
+            </span>
+
+            <span class="${statusClass}">
+                ${status}
+            </span>
+
+            <span>
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteHistory(${originalIndex})">
+
+                    Delete
+
+                </button>
+
+            </span>
+
+        `;
+
+
+        container.appendChild(row);
+
+    });
+
+}
+
+
+/* ==========================================
+   DOMAIN ICON
+========================================== */
+
+function getDomainIcon(domain) {
+
+    const name =
+        String(domain).toLowerCase();
+
+
+    if (name.includes("agriculture")) {
+        return "🌱";
+    }
+
+    if (name.includes("health")) {
+        return "🏥";
+    }
+
+    if (name.includes("finance")) {
+        return "💰";
+    }
+
+    if (name.includes("education")) {
+        return "🎓";
+    }
+
+    if (name.includes("cyber")) {
+        return "🔐";
+    }
+
+    if (name.includes("business")) {
+        return "💼";
+    }
+
+    return "🤖";
+
+}
+
+
+/* ==========================================
+   DELETE HISTORY
+========================================== */
+
+function deleteHistory(index) {
+
+    let history =
+        JSON.parse(
+            localStorage.getItem(
+                "trustai_analysis_history"
+            )
+        ) || [];
+
+
+    if (!confirm(
+        "Delete this analysis from history?"
+    )) {
+
+        return;
+
+    }
+
+
+    history.splice(index, 1);
+
+
+    localStorage.setItem(
+        "trustai_analysis_history",
+        JSON.stringify(history)
+    );
+
+
+    loadHistory();
+
+}
+
+
+/* ==========================================
+   LOAD PAGE
+========================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadHistory();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

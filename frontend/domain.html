@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Select Domain - TrustAI</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="side-logo">
+            <span>◉</span> TrustAI
+        </div>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+                🏠 Dashboard
+            </li>
+
+            <li class="active" onclick="location.href='domain.html'">
+                🔍 Analyze
+            </li>
+
+            <li onclick="location.href='history.html'">
+                📊 History
+            </li>
+
+            <li onclick="location.href='profile.html'">
+                👤 Profile
+            </li>
+
+            <li onclick="location.href='settings.html'">
+                ⚙ Settings
+            </li>
+
+        </ul>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <section class="dashboard-content">
+
+        <h1>Choose AI Domain</h1>
+
+        <p>
+            Select the field where you want reliable AI analysis.
+        </p>
+
+
+        <div class="domain-container">
+
+
+            <!-- AGRICULTURE -->
+            <div class="domain-card"
+                 onclick="openDomain('agriculture.html')">
+
+                <div class="domain-icon">
+                    🌱
+                </div>
+
+                <h2>Agriculture</h2>
+
+                <p>
+                    Crop prediction and farming insights
+                </p>
+
+            </div>
+
+
+            <!-- HEALTHCARE -->
+            <div class="domain-card"
+                 onclick="openDomain('healthcare.html')">
+
+                <div class="domain-icon">
+                    🏥
+                </div>
+
+                <h2>Healthcare</h2>
+
+                <p>
+                    Medical risk analysis
+                </p>
+
+            </div>
+
+
+            <!-- FINANCE -->
+            <div class="domain-card"
+                 onclick="openDomain('finance.html')">
+
+                <div class="domain-icon">
+                    💰
+                </div>
+
+                <h2>Finance</h2>
+
+                <p>
+                    Financial prediction analysis
+                </p>
+
+            </div>
+
+
+            <!-- EDUCATION -->
+            <div class="domain-card"
+                 onclick="openDomain('education.html')">
+
+                <div class="domain-icon">
+                    🎓
+                </div>
+
+                <h2>Education</h2>
+
+                <p>
+                    Student performance analysis
+                </p>
+
+            </div>
+
+
+            <!-- CYBERSECURITY -->
+            <div class="domain-card"
+                 onclick="openDomain('cybersecurity.html')">
+
+                <div class="domain-icon">
+                    🔐
+                </div>
+
+                <h2>Cybersecurity</h2>
+
+                <p>
+                    Security and cyber risk analysis
+                </p>
+
+            </div>
+
+
+            <!-- BUSINESS -->
+            <div class="domain-card"
+                 onclick="openDomain('business.html')">
+
+                <div class="domain-icon">
+                    💼
+                </div>
+
+                <h2>Business</h2>
+
+                <p>
+                    Business risk and opportunity analysis
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- AUTH JS — ONLY ONCE -->
+<script src="js/auth.js"></script>
+
+<script>
+
+    checkLogin();
+
+    function openDomain(page) {
+        window.location.href = page;
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cybersecurity Analysis - TrustAI</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="side-logo">
+            <span>◉</span> TrustAI
+        </div>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+                🏠 Dashboard
+            </li>
+
+            <li class="active">
+                🔐 Cybersecurity
+            </li>
+
+            <li onclick="location.href='history.html'">
+                📊 History
+            </li>
+
+            <li onclick="location.href='profile.html'">
+                👤 Profile
+            </li>
+
+            <li onclick="location.href='settings.html'">
+                ⚙ Settings
+            </li>
+
+        </ul>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <section class="dashboard-content">
+
+        <h1>
+            Cybersecurity AI Analysis 🔐
+        </h1>
+
+        <p>
+            Enter security information to get reliable AI risk insights.
+        </p>
+
+
+        <!-- ================= FORM CARD ================= -->
+
+        <div class="form-card">
+
+            <div class="form-grid">
+
+
+                <!-- LOGIN ATTEMPTS -->
+
+                <div class="input-box">
+
+                    <label>
+                        Failed Login Attempts
+                    </label>
+
+                    <input
+                        type="number"
+                        id="loginAttempts"
+                        placeholder="Example: 3"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD STRENGTH -->
+
+                <div class="input-box">
+
+                    <label>
+                        Password Strength
+                    </label>
+
+                    <select id="passwordStrength">
+
+                        <option value="">
+                            Select password strength
+                        </option>
+
+                        <option value="weak">
+                            Weak
+                        </option>
+
+                        <option value="medium">
+                            Medium
+                        </option>
+
+                        <option value="strong">
+                            Strong
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- FIREWALL -->
+
+                <div class="input-box">
+
+                    <label>
+                        Firewall Status
+                    </label>
+
+                    <select id="firewall">
+
+                        <option value="">
+                            Select firewall status
+                        </option>
+
+                        <option value="enabled">
+                            Enabled
+                        </option>
+
+                        <option value="disabled">
+                            Disabled
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ANTIVIRUS -->
+
+                <div class="input-box">
+
+                    <label>
+                        Antivirus Status
+                    </label>
+
+                    <select id="antivirus">
+
+                        <option value="">
+                            Select antivirus status
+                        </option>
+
+                        <option value="active">
+                            Active
+                        </option>
+
+                        <option value="inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SUSPICIOUS ACTIVITIES -->
+
+                <div class="input-box">
+
+                    <label>
+                        Suspicious Activities
+                    </label>
+
+                    <input
+                        type="number"
+                        id="suspiciousActivities"
+                        placeholder="Example: 2"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <!-- SECURITY AWARENESS -->
+
+                <div class="input-box">
+
+                    <label>
+                        Security Awareness
+                    </label>
+
+                    <select id="awareness">
+
+                        <option value="">
+                            Select awareness level
+                        </option>
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                        <option value="medium">
+                            Medium
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= ANALYZE BUTTON ================= -->
+
+            <button
+                class="analyze-btn"
+                onclick="startAnalysis()"
+            >
+
+                Analyze With TrustAI
+
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- ================= AUTH ================= -->
+
+<script src="js/auth.js"></script>
+
+
+<script>
+
+    /*
+     * CHECK LOGIN
+     */
+
+    checkLogin();
+
+
+    /*
+     * CYBERSECURITY ANALYSIS
+     */
+
+    function startAnalysis() {
+
+        const loginAttempts =
+            document.getElementById("loginAttempts").value.trim();
+
+        const passwordStrength =
+            document.getElementById("passwordStrength").value;
+
+        const firewall =
+            document.getElementById("firewall").value;
+
+        const antivirus =
+            document.getElementById("antivirus").value;
+
+        const suspiciousActivities =
+            document.getElementById("suspiciousActivities").value.trim();
+
+        const awareness =
+            document.getElementById("awareness").value;
+
+
+        /*
+         * CHECK EMPTY FIELDS
+         */
+
+        if (
+            loginAttempts === "" ||
+            passwordStrength === "" ||
+            firewall === "" ||
+            antivirus === "" ||
+            suspiciousActivities === "" ||
+            awareness === ""
+        ) {
+
+            alert(
+                "Please fill all cybersecurity details."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * NUMBER VALIDATION
+         */
+
+        if (
+            Number(loginAttempts) < 0
+        ) {
+
+            alert(
+                "Failed login attempts cannot be negative."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            Number(suspiciousActivities) < 0
+        ) {
+
+            alert(
+                "Suspicious activities cannot be negative."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * CREATE CYBERSECURITY DATA
+         */
+
+        const cybersecurityData = {
+
+            domain: "Cybersecurity",
+
+            loginAttempts:
+                Number(loginAttempts),
+
+            passwordStrength:
+                passwordStrength,
+
+            firewall:
+                firewall,
+
+            antivirus:
+                antivirus,
+
+            suspiciousActivities:
+                Number(suspiciousActivities),
+
+            awareness:
+                awareness
+
+        };
+
+
+        /*
+         * SAVE ANALYSIS DATA
+         */
+
+        localStorage.setItem(
+            "trustai_analysis_data",
+            JSON.stringify(cybersecurityData)
+        );
+
+
+        /*
+         * SAVE SELECTED DOMAIN
+         */
+
+        localStorage.setItem(
+            "trustai_selected_domain",
+            "Cybersecurity"
+        );
+
+
+        /*
+         * OPEN ANALYSIS PAGE
+         */
+
+        window.location.href =
+            "analysis.html";
+
+    }
+
+</script>
+
+</body>
+
+</html>

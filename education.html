@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Education Analysis - TrustAI</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="side-logo">
+            <span>◉</span> TrustAI
+        </div>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+                🏠 Dashboard
+            </li>
+
+            <li class="active">
+                🎓 Education
+            </li>
+
+            <li onclick="location.href='history.html'">
+                📊 History
+            </li>
+
+            <li onclick="location.href='profile.html'">
+                👤 Profile
+            </li>
+
+            <li onclick="location.href='settings.html'">
+                ⚙ Settings
+            </li>
+
+        </ul>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <section class="dashboard-content">
+
+        <h1>
+            Education AI Analysis 🎓
+        </h1>
+
+        <p>
+            Enter student data to get reliable AI insights.
+        </p>
+
+
+        <!-- ================= FORM CARD ================= -->
+
+        <div class="form-card">
+
+            <div class="form-grid">
+
+
+                <!-- STUDY HOURS -->
+
+                <div class="input-box">
+
+                    <label>
+                        Study Hours Per Day
+                    </label>
+
+                    <input
+                        type="number"
+                        id="studyHours"
+                        placeholder="Example: 5"
+                        min="0"
+                        max="24"
+                        step="0.5"
+                    >
+
+                </div>
+
+
+                <!-- PREPARATION -->
+
+                <div class="input-box">
+
+                    <label>
+                        Preparation (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="preparation"
+                        placeholder="Example: 75"
+                        min="0"
+                        max="100"
+                    >
+
+                </div>
+
+
+                <!-- ATTENDANCE -->
+
+                <div class="input-box">
+
+                    <label>
+                        Attendance (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="attendance"
+                        placeholder="Example: 85"
+                        min="0"
+                        max="100"
+                    >
+
+                </div>
+
+
+                <!-- PREVIOUS MARKS -->
+
+                <div class="input-box">
+
+                    <label>
+                        Previous Marks (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="marks"
+                        placeholder="Example: 70"
+                        min="0"
+                        max="100"
+                    >
+
+                </div>
+
+
+                <!-- PRACTICE -->
+
+                <div class="input-box">
+
+                    <label>
+                        Practice Level
+                    </label>
+
+                    <select id="practice">
+
+                        <option value="">
+                            Select practice level
+                        </option>
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                        <option value="medium">
+                            Medium
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- REVISION -->
+
+                <div class="input-box">
+
+                    <label>
+                        Revision Level
+                    </label>
+
+                    <select id="revision">
+
+                        <option value="">
+                            Select revision level
+                        </option>
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                        <option value="medium">
+                            Medium
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= ANALYZE BUTTON ================= -->
+
+            <button
+                class="analyze-btn"
+                onclick="startAnalysis()"
+            >
+
+                Analyze With TrustAI
+
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- ================= AUTH ================= -->
+
+<script src="js/auth.js"></script>
+
+
+<script>
+
+    /*
+     * CHECK LOGIN
+     */
+
+    checkLogin();
+
+
+    /*
+     * EDUCATION ANALYSIS
+     */
+
+    function startAnalysis() {
+
+        const studyHours =
+            document.getElementById("studyHours").value.trim();
+
+        const preparation =
+            document.getElementById("preparation").value.trim();
+
+        const attendance =
+            document.getElementById("attendance").value.trim();
+
+        const marks =
+            document.getElementById("marks").value.trim();
+
+        const practice =
+            document.getElementById("practice").value;
+
+        const revision =
+            document.getElementById("revision").value;
+
+
+        /*
+         * VALIDATION
+         */
+
+        if (
+            studyHours === "" ||
+            preparation === "" ||
+            attendance === "" ||
+            marks === "" ||
+            practice === "" ||
+            revision === ""
+        ) {
+
+            alert("Please fill all education details.");
+
+            return;
+
+        }
+
+
+        /*
+         * STUDY HOURS VALIDATION
+         */
+
+        if (
+            Number(studyHours) < 0 ||
+            Number(studyHours) > 24
+        ) {
+
+            alert(
+                "Study hours must be between 0 and 24."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * PERCENTAGE VALIDATION
+         */
+
+        if (
+            Number(preparation) < 0 ||
+            Number(preparation) > 100
+        ) {
+
+            alert(
+                "Preparation percentage must be between 0 and 100."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            Number(attendance) < 0 ||
+            Number(attendance) > 100
+        ) {
+
+            alert(
+                "Attendance percentage must be between 0 and 100."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            Number(marks) < 0 ||
+            Number(marks) > 100
+        ) {
+
+            alert(
+                "Previous marks must be between 0 and 100."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * CREATE EDUCATION DATA
+         */
+
+        const educationData = {
+
+            domain: "Education",
+
+            studyHours: Number(studyHours),
+
+            preparation: Number(preparation),
+
+            attendance: Number(attendance),
+
+            marks: Number(marks),
+
+            practice: practice,
+
+            revision: revision
+
+        };
+
+
+        /*
+         * SAVE DATA
+         */
+
+        localStorage.setItem(
+            "trustai_analysis_data",
+            JSON.stringify(educationData)
+        );
+
+
+        /*
+         * SAVE SELECTED DOMAIN
+         */
+
+        localStorage.setItem(
+            "trustai_selected_domain",
+            "Education"
+        );
+
+
+        /*
+         * OPEN ANALYSIS PAGE
+         */
+
+        window.location.href =
+            "analysis.html";
+
+    }
+
+</script>
+
+</body>
+
+</html>

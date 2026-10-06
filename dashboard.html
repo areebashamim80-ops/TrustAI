@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TrustAI Dashboard</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="side-logo">
+        <span>◉</span> TrustAI
+    </div>
+
+    <ul>
+
+        <li class="active"
+            onclick="location.href='dashboard.html'">
+            🏠 Dashboard
+        </li>
+
+        <li onclick="location.href='domain.html'">
+            🔍 Analyze
+        </li>
+
+        <li onclick="location.href='history.html'">
+            📊 History
+        </li>
+
+        <li onclick="location.href='profile.html'">
+            👤 Profile
+        </li>
+
+        <li onclick="location.href='settings.html'">
+            ⚙ Settings
+        </li>
+
+    </ul>
+
+    <button
+        onclick="logout()"
+        class="logout-btn">
+        Logout
+    </button>
+
+</aside>
+
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<section class="dashboard-content">
+
+    <h1>
+        Welcome Back 👋
+    </h1>
+
+    <p>
+        Monitor your AI decisions and reliability scores
+    </p>
+
+
+
+    <!-- ================= DASHBOARD CARDS ================= -->
+
+    <div class="dashboard-cards">
+
+
+        <div
+            class="dash-card clickable-card"
+            onclick="location.href='result.html'">
+
+            <h3>Trust Score</h3>
+
+            <div class="big-score">
+                92%
+            </div>
+
+            <span class="high">
+                High Reliability
+            </span>
+
+        </div>
+
+
+
+        <div
+            class="dash-card clickable-card"
+            onclick="location.href='history.html'">
+
+            <h3>Total Analysis</h3>
+
+            <div class="number">
+                24
+            </div>
+
+            <p>
+                Completed predictions
+            </p>
+
+        </div>
+
+
+
+        <div
+            class="dash-card clickable-card"
+            onclick="location.href='domain.html'">
+
+            <h3>Accuracy</h3>
+
+            <div class="number">
+                96%
+            </div>
+
+            <p>
+                Model confidence
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= QUICK ANALYSIS ================= -->
+
+    <div class="analysis-box">
+
+        <h2>
+            Recent AI Analysis
+        </h2>
+
+
+        <div
+            class="analysis-item clickable-item"
+            onclick="location.href='agriculture.html'">
+
+            <div>
+                <h3>Agriculture Prediction</h3>
+                <p>Crop recommendation analysis</p>
+            </div>
+
+            <span class="success">
+                Reliable
+            </span>
+
+        </div>
+
+
+
+        <div
+            class="analysis-item clickable-item"
+            onclick="location.href='healthcare.html'">
+
+            <div>
+                <h3>Healthcare Risk Analysis</h3>
+                <p>Medical data evaluation</p>
+            </div>
+
+            <span class="warning">
+                Review
+            </span>
+
+        </div>
+
+
+
+        <div
+            class="analysis-item clickable-item"
+            onclick="location.href='finance.html'">
+
+            <div>
+                <h3>Finance Analysis</h3>
+                <p>Financial risk evaluation</p>
+            </div>
+
+            <span class="success">
+                Reliable
+            </span>
+
+        </div>
+
+
+
+        <div
+            class="analysis-item clickable-item"
+            onclick="location.href='education.html'">
+
+            <div>
+                <h3>Education Analysis</h3>
+                <p>Student performance evaluation</p>
+            </div>
+
+            <span class="success">
+                Reliable
+            </span>
+
+        </div>
+
+
+
+        <div
+            class="analysis-item clickable-item"
+            onclick="location.href='cybersecurity.html'">
+
+            <div>
+                <h3>Cybersecurity Analysis</h3>
+                <p>Security risk evaluation</p>
+            </div>
+
+            <span class="warning">
+                Review
+            </span>
+
+        </div>
+
+
+
+        <div
+            class="analysis-item clickable-item"
+            onclick="location.href='business.html'">
+
+            <div>
+                <h3>Business Analysis</h3>
+                <p>Business performance evaluation</p>
+            </div>
+
+            <span class="success">
+                Reliable
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+
+
+<!-- ================= AUTH ================= -->
+
+<script src="js/auth.js"></script>
+
+<script>
+
+checkLogin();
+
+document
+    .querySelectorAll(".clickable-card, .clickable-item")
+    .forEach(function(element) {
+
+        element.style.cursor = "pointer";
+
+    });
+
+</script>
+
+</body>
+
+</html>

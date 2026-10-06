@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Settings - TrustAI</title>
+
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="dashboard">
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="side-logo">
+        <span>◉</span> TrustAI
+    </div>
+
+    <ul>
+
+        <li onclick="location.href='dashboard.html'">
+            🏠 Dashboard
+        </li>
+
+        <li onclick="location.href='domain.html'">
+            🔍 Analyze
+        </li>
+
+        <li onclick="location.href='history.html'">
+            📊 History
+        </li>
+
+        <li onclick="location.href='profile.html'">
+            👤 Profile
+        </li>
+
+        <li class="active"
+            onclick="location.href='settings.html'">
+            ⚙ Settings
+        </li>
+
+    </ul>
+
+    <button
+        class="logout-btn"
+        onclick="logout()">
+        Logout
+    </button>
+
+</aside>
+
+
+
+
+
+<section class="dashboard-content">
+
+
+<h1>
+Settings
+</h1>
+
+
+<p>
+Customize your TrustAI preferences.
+</p>
+
+
+
+<div class="settings-card">
+
+
+
+<div class="setting-item">
+
+<span>
+Email Notifications
+</span>
+
+
+<input type="checkbox" checked>
+
+
+</div>
+
+
+
+
+<div class="setting-item">
+
+
+<span>
+AI Explanation Mode
+</span>
+
+
+<input type="checkbox" checked>
+
+
+</div>
+
+
+
+
+<div class="setting-item">
+
+
+<span>
+Dark Theme
+</span>
+
+
+<input type="checkbox" checked>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+</div>
+<script src="js/auth.js"></script>
+
+<script>
+    checkLogin();
+</script>
+
+</body>
+
+</html>

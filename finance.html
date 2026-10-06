@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finance Analysis - TrustAI</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="side-logo">
+            <span>◉</span> TrustAI
+        </div>
+
+        <ul>
+
+            <li onclick="location.href='dashboard.html'">
+                🏠 Dashboard
+            </li>
+
+            <li class="active">
+                💰 Finance
+            </li>
+
+            <li onclick="location.href='history.html'">
+                📊 History
+            </li>
+
+            <li onclick="location.href='profile.html'">
+                👤 Profile
+            </li>
+
+            <li onclick="location.href='settings.html'">
+                ⚙ Settings
+            </li>
+
+        </ul>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <section class="dashboard-content">
+
+        <h1>
+            Finance AI Analysis 💰
+        </h1>
+
+        <p>
+            Enter financial data to get reliable AI insights.
+        </p>
+
+
+        <!-- ================= FORM CARD ================= -->
+
+        <div class="form-card">
+
+            <div class="form-grid">
+
+
+                <!-- MONTHLY INCOME -->
+
+                <div class="input-box">
+
+                    <label>
+                        Monthly Income (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="income"
+                        placeholder="Enter monthly income"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <!-- MONTHLY EXPENSE -->
+
+                <div class="input-box">
+
+                    <label>
+                        Monthly Expenses (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="expenses"
+                        placeholder="Enter monthly expenses"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <!-- EXISTING DEBT -->
+
+                <div class="input-box">
+
+                    <label>
+                        Existing Debt (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="debt"
+                        placeholder="Enter existing debt"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <!-- SAVINGS -->
+
+                <div class="input-box">
+
+                    <label>
+                        Savings (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="savings"
+                        placeholder="Enter savings"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <!-- INVESTMENT -->
+
+                <div class="input-box">
+
+                    <label>
+                        Investment (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="investment"
+                        placeholder="Enter investment amount"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <!-- CREDIT SCORE -->
+
+                <div class="input-box">
+
+                    <label>
+                        Credit Score
+                    </label>
+
+                    <input
+                        type="number"
+                        id="creditScore"
+                        placeholder="Example: 750"
+                        min="300"
+                        max="900"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= ANALYZE BUTTON ================= -->
+
+            <button
+                class="analyze-btn"
+                onclick="startAnalysis()"
+            >
+
+                Analyze With TrustAI
+
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- ================= AUTH ================= -->
+
+<script src="js/auth.js"></script>
+
+
+<script>
+
+    /*
+     * CHECK LOGIN
+     */
+
+    checkLogin();
+
+
+    /*
+     * FINANCE ANALYSIS
+     */
+
+    function startAnalysis() {
+
+        const income =
+            document.getElementById("income").value.trim();
+
+        const expenses =
+            document.getElementById("expenses").value.trim();
+
+        const debt =
+            document.getElementById("debt").value.trim();
+
+        const savings =
+            document.getElementById("savings").value.trim();
+
+        const investment =
+            document.getElementById("investment").value.trim();
+
+        const creditScore =
+            document.getElementById("creditScore").value.trim();
+
+
+        /*
+         * VALIDATION
+         */
+
+        if (
+            income === "" ||
+            expenses === "" ||
+            debt === "" ||
+            savings === "" ||
+            investment === "" ||
+            creditScore === ""
+        ) {
+
+            alert("Please fill all financial details.");
+
+            return;
+
+        }
+
+
+        /*
+         * NUMBER VALIDATION
+         */
+
+        if (
+            Number(income) < 0 ||
+            Number(expenses) < 0 ||
+            Number(debt) < 0 ||
+            Number(savings) < 0 ||
+            Number(investment) < 0
+        ) {
+
+            alert("Financial values cannot be negative.");
+
+            return;
+
+        }
+
+
+        /*
+         * CREDIT SCORE VALIDATION
+         */
+
+        if (
+            Number(creditScore) < 300 ||
+            Number(creditScore) > 900
+        ) {
+
+            alert(
+                "Please enter a valid credit score between 300 and 900."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * CALCULATE BASIC FINANCIAL VALUES
+         */
+
+        const monthlyBalance =
+            Number(income) - Number(expenses);
+
+
+        /*
+         * CREATE FINANCE DATA
+         */
+
+        const financeData = {
+
+            domain: "Finance",
+
+            income: Number(income),
+
+            expenses: Number(expenses),
+
+            debt: Number(debt),
+
+            savings: Number(savings),
+
+            investment: Number(investment),
+
+            creditScore: Number(creditScore),
+
+            monthlyBalance: monthlyBalance
+
+        };
+
+
+        /*
+         * SAVE ANALYSIS DATA
+         */
+
+        localStorage.setItem(
+            "trustai_analysis_data",
+            JSON.stringify(financeData)
+        );
+
+
+        /*
+         * SAVE SELECTED DOMAIN
+         */
+
+        localStorage.setItem(
+            "trustai_selected_domain",
+            "Finance"
+        );
+
+
+        /*
+         * OPEN ANALYSIS PAGE
+         */
+
+        window.location.href =
+            "analysis.html";
+
+    }
+
+</script>
+
+</body>
+
+</html>
